@@ -77,7 +77,8 @@ def main():
     task_timing = _timing_helper.estimate_task_timing(trial_info, X.shape[1])
 
     # Run cross-architecture test
-    output_dir = RESULTS_DIR / 'cross_architecture'
+    # Note: cross_architecture_test() internally appends '/cross_architecture' to output_dir
+    output_dir = RESULTS_DIR
     summary = cross_architecture_test(
         splits=splits,
         task_timing=task_timing,
@@ -110,7 +111,7 @@ def main():
         print(f'  {var_info["verdict"]}')
 
     print()
-    logger.info('Results saved to %s', output_dir)
+    logger.info('Results saved to %s', RESULTS_DIR / 'cross_architecture')
 
 
 if __name__ == '__main__':

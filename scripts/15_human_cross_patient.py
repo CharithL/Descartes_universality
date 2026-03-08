@@ -103,7 +103,8 @@ def main():
     task_timing = _timing_helper.estimate_task_timing(first_info, first_X.shape[1])
 
     # Run cross-patient test
-    output_dir = RESULTS_DIR / 'cross_patient'
+    # Note: cross_patient_test() internally appends '/cross_patient' to output_dir
+    output_dir = RESULTS_DIR
     summary = cross_patient_test(
         patient_data=patient_data,
         task_timing=task_timing,
@@ -127,7 +128,7 @@ def main():
         print(f'{var_name:<25} {mand_str:<15} {var_info["verdict"]}')
 
     print()
-    logger.info('Results saved to %s', output_dir)
+    logger.info('Results saved to %s', RESULTS_DIR / 'cross_patient')
 
 
 if __name__ == '__main__':

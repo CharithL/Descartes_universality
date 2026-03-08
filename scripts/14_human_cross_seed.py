@@ -71,7 +71,8 @@ def main():
     task_timing = _timing_helper.estimate_task_timing(trial_info, X.shape[1])
 
     # Run cross-seed test
-    output_dir = RESULTS_DIR / 'cross_seed'
+    # Note: cross_seed_test() internally appends '/cross_seed' to output_dir
+    output_dir = RESULTS_DIR
     summary = cross_seed_test(
         splits=splits,
         task_timing=task_timing,
@@ -95,7 +96,7 @@ def main():
         print(f'{var_name:<25} {mand_str:<12} {var_info["verdict"]}')
 
     print()
-    logger.info('Results saved to %s', output_dir)
+    logger.info('Results saved to %s', RESULTS_DIR / 'cross_seed')
 
 
 if __name__ == '__main__':
