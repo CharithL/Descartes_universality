@@ -92,11 +92,10 @@ def main(argv: list[str] | None = None) -> None:
         )
         sys.exit(1)
 
-    # Find NWB files
+    # Find NWB files — dandi download creates nested dirs (e.g. 000576/sub-XXX/)
     nwb_paths = sorted(nwb_dir.glob('*.nwb'))
     if not nwb_paths:
-        # Also check sub-directories one level deep
-        nwb_paths = sorted(nwb_dir.glob('*/*.nwb'))
+        nwb_paths = sorted(nwb_dir.rglob('*.nwb'))
     if not nwb_paths:
         print(f'ERROR: No .nwb files found in {nwb_dir}', file=sys.stderr)
         sys.exit(1)

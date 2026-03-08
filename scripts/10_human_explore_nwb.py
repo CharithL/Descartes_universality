@@ -37,8 +37,9 @@ def _find_first_nwb(directory: Path) -> Path | None:
     nwb_files = sorted(directory.glob('*.nwb'))
     if nwb_files:
         return nwb_files[0]
-    # Also check sub-directories one level deep
-    nwb_files = sorted(directory.glob('*/*.nwb'))
+    # dandi download creates nested dirs: data/raw/000576/sub-XXX/file.nwb
+    # Use recursive glob to find NWB files at any depth
+    nwb_files = sorted(directory.rglob('*.nwb'))
     return nwb_files[0] if nwb_files else None
 
 
