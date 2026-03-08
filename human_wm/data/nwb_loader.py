@@ -56,17 +56,64 @@ def _open_nwb(nwb_path: str | Path):
     return nwbfile
 
 
+def _coerce_region_to_str(value) -> str:
+    """Convert a region value to a plain string (handles ElectrodeGroup objects)."""
+    if isinstance(value, str):
+        return value
+    location = getattr(value, 'location', None)
+    if location and isinstance(location, str) and location.strip():
+        return location.strip()
+    name = getattr(value, 'name', None)
+    if name and isinstance(name, str) and name.strip():
+        return name.strip()
+    return str(value)
+
+
+def _get_unit_region_via_electrodes(nwbfile, unit_idx: int) -> str | None:
+    """Get brain region for a unit via the electrodes table.
+
+    NWB path: units[i].electrodes → electrodes table → location column.
+    """
+    try:
+        units = nwbfile.units
+        electrode_ref = units['electrodes'][unit_idx]
+        if hasattr(electrode_ref, '__len__') and len(electrode_ref) > 0:
+            e_idx = int(electrode_ref[0])
+        else:
+            e_idx = int(electrode_ref)
+
+        electrodes = nwbfile.electrodes
+        if electrodes is None:
+            return None
+
+        for col in ('location', 'group_name', 'brain_region', 'brain_area'):
+            if col in electrodes.colnames:
+                val = electrodes[col][e_idx]
+                return _coerce_region_to_str(val)
+
+        if 'group' in electrodes.colnames:
+            grp = electrodes['group'][e_idx]
+            return _coerce_region_to_str(grp)
+    except Exception:
+        return None
+    return None
+
+
 def _classify_region(region_name: str, schema: dict) -> str:
     """Classify a brain region as 'mtl', 'frontal', or 'other' using schema.
 
-    Uses case-insensitive matching against the schema's ``mtl_regions`` and
-    ``frontal_regions`` lists. NO hardcoded patterns -- the schema is the
-    single source of truth.
+    Uses case-insensitive **substring** matching so that e.g.
+    ``"Right Hippocampus"`` matches schema entry ``"hippocampus"``,
+    and schema entry ``"Right Hippocampus"`` matches region
+    ``"Right Hippocampus"``.
+
+    Falls back to the hardcoded patterns in human_wm.config if schema
+    lists are empty (bootstrapping scenario).
 
     Parameters
     ----------
     region_name : str
-        Name of the brain region (e.g. 'hippocampus', 'dACC').
+        Name of the brain region (e.g. 'Right Hippocampus', 'dACC').
     schema : dict
         NWB schema dictionary with 'mtl_regions' and 'frontal_regions' keys.
 
@@ -75,14 +122,29 @@ def _classify_region(region_name: str, schema: dict) -> str:
     str
         One of 'mtl', 'frontal', or 'other'.
     """
+    from human_wm.config import MTL_REGION_PATTERNS, FRONTAL_REGION_PATTERNS
+
     name_lower = region_name.lower()
 
+    # Check schema lists first (substring match both directions)
     for pattern in schema.get('mtl_regions', []):
-        if pattern.lower() == name_lower:
+        pat = pattern.lower()
+        if pat in name_lower or name_lower in pat:
             return 'mtl'
 
     for pattern in schema.get('frontal_regions', []):
-        if pattern.lower() == name_lower:
+        pat = pattern.lower()
+        if pat in name_lower or name_lower in pat:
+            return 'frontal'
+
+    # Fall back to hardcoded config patterns (handles bootstrapping when
+    # schema lists are empty)
+    for pattern in MTL_REGION_PATTERNS:
+        if pattern.lower() in name_lower:
+            return 'mtl'
+
+    for pattern in FRONTAL_REGION_PATTERNS:
+        if pattern.lower() in name_lower:
             return 'frontal'
 
     return 'other'
@@ -119,8 +181,9 @@ def extract_patient_data(
     """
     nwbfile = _open_nwb(nwb_path)
 
-    # --- Identify region column ---
+    # --- Identify region lookup strategy ---
     region_column = schema.get('region_column', 'brain_region')
+    region_source = schema.get('region_source', 'direct')
 
     # --- Classify neurons ---
     units = nwbfile.units
@@ -130,16 +193,27 @@ def extract_patient_data(
     frontal_indices = []
 
     for i in range(n_units):
-        raw_region = units[region_column][i]
-        # ElectrodeGroup objects → extract .location (brain region) or .name
-        if isinstance(raw_region, str):
-            region = raw_region
-        else:
-            region = (
-                getattr(raw_region, 'location', None)
-                or getattr(raw_region, 'name', None)
-                or str(raw_region)
-            )
+        region = None
+
+        # Strategy 1: indirect via electrodes table (if schema says so)
+        if region_source == 'electrodes_table' and 'electrodes' in list(units.colnames or []):
+            region = _get_unit_region_via_electrodes(nwbfile, i)
+
+        # Strategy 2: direct column on units table
+        if region is None and region_column and region_column in list(units.colnames or []):
+            raw_region = units[region_column][i]
+            if isinstance(raw_region, str):
+                region = raw_region
+            else:
+                region = (
+                    getattr(raw_region, 'location', None)
+                    or getattr(raw_region, 'name', None)
+                    or str(raw_region)
+                )
+
+        if region is None:
+            region = 'unknown'
+
         classification = _classify_region(region, schema)
         if classification == 'mtl':
             mtl_indices.append(i)

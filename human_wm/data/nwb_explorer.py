@@ -155,15 +155,68 @@ def _coerce_region_to_str(value) -> str:
     return str(value)
 
 
-def _extract_regions(nwbfile, region_column: str) -> dict[str, int]:
+def _get_unit_region_via_electrodes(nwbfile, unit_idx: int) -> str | None:
+    """Get brain region for a unit by following the electrodes reference.
+
+    NWB standard path:  units[i].electrodes -> electrodes table -> location
+    This is the typical storage pattern for Rutishauser DANDI 000576.
+
+    Parameters
+    ----------
+    nwbfile : pynwb.NWBFile
+    unit_idx : int
+        Index of the unit in the units table.
+
+    Returns
+    -------
+    str or None
+        Brain region string, or None if lookup fails.
+    """
+    try:
+        units = nwbfile.units
+        # units['electrodes'] gives a DynamicTableRegion referencing the
+        # electrodes table. For unit i it may be a single index or a list.
+        electrode_ref = units['electrodes'][unit_idx]
+        # electrode_ref is typically a list/array of electrode row indices
+        if hasattr(electrode_ref, '__len__') and len(electrode_ref) > 0:
+            e_idx = int(electrode_ref[0])
+        else:
+            e_idx = int(electrode_ref)
+
+        electrodes = nwbfile.electrodes
+        if electrodes is None:
+            return None
+
+        # Try 'location' column first (standard), then 'group_name'
+        for col in ('location', 'group_name', 'brain_region', 'brain_area'):
+            if col in electrodes.colnames:
+                val = electrodes[col][e_idx]
+                return _coerce_region_to_str(val)
+
+        # Fall back to the electrode's group object
+        if 'group' in electrodes.colnames:
+            grp = electrodes['group'][e_idx]
+            return _coerce_region_to_str(grp)
+    except Exception:
+        return None
+    return None
+
+
+def _extract_regions(nwbfile, region_column: str | None) -> dict[str, int]:
     """Extract brain region counts from the units table.
+
+    Tries three strategies in order:
+    1. Direct column on units table (brain_region, location, etc.)
+    2. If that gives only generic labels (e.g. 'Intracranial'), try
+       the indirect path: units → electrodes table → location
+    3. Fall back to whatever the direct column gave
 
     Parameters
     ----------
     nwbfile : pynwb.NWBFile
         The NWB file object.
-    region_column : str
-        Name of the column containing brain region labels.
+    region_column : str or None
+        Name of the column containing brain region labels (may be None).
 
     Returns
     -------
@@ -171,11 +224,41 @@ def _extract_regions(nwbfile, region_column: str) -> dict[str, int]:
         Mapping of region name (string) to unit count.
     """
     units = nwbfile.units
-    regions = []
-    for i in range(len(units)):
-        raw = units[region_column][i]
-        regions.append(_coerce_region_to_str(raw))
-    return dict(Counter(regions))
+    n_units = len(units)
+
+    # --- Strategy 1: direct column ---
+    direct_regions = []
+    if region_column is not None:
+        for i in range(n_units):
+            raw = units[region_column][i]
+            direct_regions.append(_coerce_region_to_str(raw))
+
+    # Check if direct regions are too generic (all the same, or known
+    # generic labels like 'Intracranial', 'unknown')
+    _GENERIC_LABELS = {'intracranial', 'unknown', 'brain', 'ieeg', 'ecog',
+                       'seeg', 'n/a', ''}
+    unique_direct = set(r.lower() for r in direct_regions) if direct_regions else set()
+    direct_is_generic = (
+        len(unique_direct) <= 1
+        or unique_direct.issubset(_GENERIC_LABELS)
+    )
+
+    # --- Strategy 2: indirect via electrodes table ---
+    if direct_is_generic and 'electrodes' in (list(units.colnames) if units.colnames else []):
+        indirect_regions = []
+        for i in range(n_units):
+            region = _get_unit_region_via_electrodes(nwbfile, i)
+            indirect_regions.append(region or 'unknown')
+        # Only use indirect if it's richer
+        unique_indirect = set(r.lower() for r in indirect_regions)
+        if len(unique_indirect) > len(unique_direct):
+            return dict(Counter(indirect_regions))
+
+    # Fall back to direct
+    if direct_regions:
+        return dict(Counter(direct_regions))
+
+    return {}
 
 
 def _detect_timing_columns(trial_colnames: list[str]) -> list[str]:
@@ -225,10 +308,29 @@ def explore_nwb(nwb_path: str | Path) -> dict[str, Any]:
     units_columns = list(nwbfile.units.colnames) if nwbfile.units is not None else []
     n_units = len(nwbfile.units) if nwbfile.units is not None else 0
 
+    # --- Electrodes table ---
+    electrodes_columns = []
+    if nwbfile.electrodes is not None:
+        electrodes_columns = list(nwbfile.electrodes.colnames)
+
     # --- Region detection ---
+    # Try direct column on units table first
     region_column = _detect_region_column(units_columns)
-    if region_column is not None and n_units > 0:
+    region_source = 'direct'  # track whether we used direct or indirect
+
+    if n_units > 0:
         brain_regions = _extract_regions(nwbfile, region_column)
+        # If _extract_regions used indirect lookup, note that
+        if region_column is not None:
+            # Check if the regions we got came from indirect lookup
+            _GENERIC = {'intracranial', 'unknown', 'brain', 'ieeg', 'ecog',
+                        'seeg', 'n/a', ''}
+            direct_unique = set()
+            for i in range(n_units):
+                raw = nwbfile.units[region_column][i]
+                direct_unique.add(_coerce_region_to_str(raw).lower())
+            if direct_unique.issubset(_GENERIC) and len(brain_regions) > 1:
+                region_source = 'electrodes_table'
     else:
         brain_regions = {}
 
@@ -244,6 +346,8 @@ def explore_nwb(nwb_path: str | Path) -> dict[str, Any]:
         'trial_columns': trial_columns,
         'brain_regions': brain_regions,
         'region_column_detected': region_column,
+        'region_source': region_source,
+        'electrodes_columns': electrodes_columns,
         'electrode_groups': electrode_groups,
         'n_units': n_units,
         'n_trials': n_trials,
@@ -304,6 +408,8 @@ def generate_schema(
     schema = {
         'units_columns': info['units_columns'],
         'region_column': info['region_column_detected'],
+        'region_source': info.get('region_source', 'direct'),
+        'electrodes_columns': info.get('electrodes_columns', []),
         'trial_columns': info['trial_columns'],
         'mtl_regions': mtl_regions,
         'frontal_regions': frontal_regions,
