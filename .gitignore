@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Data (too large for git)
+data/raw/
+data/processed/
+data/surrogates/
+data/results/
+data/human_raw/
+data/human_processed/
+data/human_surrogates/
+data/human_results/
+*.nwb
+*.h5
+*.hdf5
+
+# PyTorch checkpoints
+*.pt
+*.pth
+*.ckpt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.venv/
+env/
