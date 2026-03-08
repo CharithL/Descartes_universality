@@ -77,7 +77,10 @@ def _get_unit_region_via_electrodes(nwbfile, unit_idx: int) -> str | None:
     try:
         units = nwbfile.units
         electrode_ref = units['electrodes'][unit_idx]
-        if hasattr(electrode_ref, '__len__') and len(electrode_ref) > 0:
+        # Handle pandas DataFrame (most common in modern pynwb)
+        if hasattr(electrode_ref, 'index') and hasattr(electrode_ref.index, '__len__'):
+            e_idx = int(electrode_ref.index[0])
+        elif hasattr(electrode_ref, '__len__') and len(electrode_ref) > 0:
             e_idx = int(electrode_ref[0])
         else:
             e_idx = int(electrode_ref)
@@ -192,11 +195,16 @@ def extract_patient_data(
     mtl_indices = []
     frontal_indices = []
 
+    has_electrodes_col = 'electrodes' in list(units.colnames or [])
+
     for i in range(n_units):
         region = None
 
-        # Strategy 1: indirect via electrodes table (if schema says so)
-        if region_source == 'electrodes_table' and 'electrodes' in list(units.colnames or []):
+        # Strategy 1: indirect via electrodes table
+        # Used when: schema says electrodes_table, OR no direct region column
+        if has_electrodes_col and (
+            region_source == 'electrodes_table' or not region_column
+        ):
             region = _get_unit_region_via_electrodes(nwbfile, i)
 
         # Strategy 2: direct column on units table
@@ -210,6 +218,10 @@ def extract_patient_data(
                     or getattr(raw_region, 'name', None)
                     or str(raw_region)
                 )
+
+        # Strategy 3: fall back to indirect lookup if direct gave nothing
+        if region is None and has_electrodes_col:
+            region = _get_unit_region_via_electrodes(nwbfile, i)
 
         if region is None:
             region = 'unknown'

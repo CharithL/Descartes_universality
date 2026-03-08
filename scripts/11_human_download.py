@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-11 -- Download NWB files from DANDI 000576
+11 -- Download NWB files from DANDI 000469
 
 Provides two download modes:
   1. CLI mode (default): uses ``dandi download`` for robust, resumable downloads
@@ -112,12 +112,15 @@ def download_via_api(n_sessions: int | None = None) -> list[Path]:
 
     downloaded = []
     for i, asset in enumerate(nwb_assets, 1):
-        dest = RAW_NWB_DIR / Path(asset.path).name
+        # Preserve original directory structure (e.g. sub-1/file.nwb)
+        dest = RAW_NWB_DIR / asset.path
+        dest.parent.mkdir(parents=True, exist_ok=True)
         if dest.exists():
-            print(f'  [{i}/{len(nwb_assets)}] SKIP (exists): {dest.name}')
+            print(f'  [{i}/{len(nwb_assets)}] SKIP (exists): {asset.path}')
             downloaded.append(dest)
             continue
-        print(f'  [{i}/{len(nwb_assets)}] Downloading: {asset.path} ...')
+        print(f'  [{i}/{len(nwb_assets)}] Downloading: {asset.path} '
+              f'({asset.size/(1024*1024):.1f} MB) ...')
         asset.download(dest)
         downloaded.append(dest)
         print(f'    -> {dest}')

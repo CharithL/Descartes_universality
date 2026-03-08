@@ -311,12 +311,32 @@ def compute_cross_condition_cc(model, X_test, Y_test, trial_info):
     # Detect grouping variable
     condition_col = _detect_condition_column(trial_info)
     if condition_col is None:
-        logger.warning(
-            "No suitable condition column found in trial_info (keys: %s). "
-            "Returning NaN for cross-condition CC.",
+        # Fallback: compute simple prediction correlation (no condition grouping)
+        # This measures how well the model predicts overall temporal dynamics
+        logger.info(
+            "No condition column found in trial_info (keys: %s). "
+            "Using trial-averaged prediction correlation as quality metric.",
             list(trial_info.keys()),
         )
-        return float('nan'), None
+        import torch as _torch
+
+        device = next(model.parameters()).device
+        model.eval()
+        with _torch.no_grad():
+            X_tensor = _torch.tensor(X_test, dtype=_torch.float32).to(device)
+            Y_pred = model(X_tensor)[0].cpu().numpy()
+
+        # Compare trial-averaged predicted vs true output across time × neurons
+        pred_avg = Y_pred.mean(axis=0).flatten()
+        true_avg = Y_test.mean(axis=0).flatten()
+
+        if np.std(pred_avg) < 1e-12 or np.std(true_avg) < 1e-12:
+            logger.warning("Zero variance in trial-avg predictions; CC undefined.")
+            return float('nan'), None
+
+        cc = float(np.corrcoef(pred_avg, true_avg)[0, 1])
+        logger.info("Trial-averaged prediction CC = %.3f", cc)
+        return cc, None
 
     conditions = np.asarray(trial_info[condition_col])
     logger.info("Using condition column '%s' with %d unique levels",

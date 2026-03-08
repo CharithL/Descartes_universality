@@ -210,13 +210,23 @@ def run_single_patient_pipeline(
         # Ablation (only if LEARNED)
         ablation_result = None
         if delta_r2 >= DELTA_THRESHOLD_LEARNED:
+            # Extract condition labels (ndarray) for grouped CC, or None
+            condition_labels = None
+            for col_name in ['condition', 'set_size', 'load',
+                             'category', 'stimulus_type']:
+                if col_name in trial_info_test and isinstance(
+                    trial_info_test[col_name], np.ndarray
+                ):
+                    condition_labels = trial_info_test[col_name]
+                    break
+
             try:
                 ablation_result = run_resample_ablation(
                     model=model,
                     X_test=splits['test']['X'],
                     Y_test=splits['test']['Y'],
-                    trial_info=trial_info_test,
-                    hidden_states=h_trained,
+                    trial_info=condition_labels,
+                    hidden_states=h_trained_avg,
                     target=target_values,
                     target_name=var_name,
                 )

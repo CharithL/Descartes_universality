@@ -175,10 +175,14 @@ def _get_unit_region_via_electrodes(nwbfile, unit_idx: int) -> str | None:
     try:
         units = nwbfile.units
         # units['electrodes'] gives a DynamicTableRegion referencing the
-        # electrodes table. For unit i it may be a single index or a list.
+        # electrodes table. For unit i it returns a pandas DataFrame (not
+        # a simple index/array). The DataFrame's .index contains the
+        # electrode row IDs.
         electrode_ref = units['electrodes'][unit_idx]
-        # electrode_ref is typically a list/array of electrode row indices
-        if hasattr(electrode_ref, '__len__') and len(electrode_ref) > 0:
+        # Handle pandas DataFrame (most common in modern pynwb)
+        if hasattr(electrode_ref, 'index') and hasattr(electrode_ref.index, '__len__'):
+            e_idx = int(electrode_ref.index[0])
+        elif hasattr(electrode_ref, '__len__') and len(electrode_ref) > 0:
             e_idx = int(electrode_ref[0])
         else:
             e_idx = int(electrode_ref)
@@ -320,9 +324,14 @@ def explore_nwb(nwb_path: str | Path) -> dict[str, Any]:
 
     if n_units > 0:
         brain_regions = _extract_regions(nwbfile, region_column)
-        # If _extract_regions used indirect lookup, note that
-        if region_column is not None:
-            # Check if the regions we got came from indirect lookup
+        # Determine if regions came from indirect electrode table lookup
+        if region_column is None:
+            # No direct region column on units table at all — if we got any
+            # regions, they came from the electrodes table
+            if brain_regions:
+                region_source = 'electrodes_table'
+        else:
+            # Direct column exists — check if it gave only generic labels
             _GENERIC = {'intracranial', 'unknown', 'brain', 'ieeg', 'ecog',
                         'seeg', 'n/a', ''}
             direct_unique = set()

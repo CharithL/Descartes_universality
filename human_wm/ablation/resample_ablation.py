@@ -192,7 +192,10 @@ def compute_ablated_output(
     """
     dims_to_ablate = list(dims_to_ablate)
     device = next(model.parameters()).device
-    X_dev = X.to(device)
+    if isinstance(X, np.ndarray):
+        X_dev = torch.tensor(X, dtype=torch.float32, device=device)
+    else:
+        X_dev = X.to(device)
 
     # Get the output projection layer
     proj = _get_output_proj(model)
@@ -486,7 +489,7 @@ def classify_variable(
     ----------
     probe_result : dict
         Probing result for this target. Must contain:
-        - 'delta_r2' : float, the delta-R-squared value from probing.
+        - 'delta_R2' : float, the delta-R-squared value from probing.
     ablation_result : dict or None
         Ablation result from run_resample_ablation(). Must contain:
         - 'any_causal' : bool
@@ -500,14 +503,14 @@ def classify_variable(
 
     Examples
     --------
-    >>> classify_variable({'delta_r2': 0.05}, None)
+    >>> classify_variable({'delta_R2': 0.05}, None)
     'ZOMBIE'
-    >>> classify_variable({'delta_r2': 0.25}, {'any_causal': False})
+    >>> classify_variable({'delta_R2': 0.25}, {'any_causal': False})
     'LEARNED_ZOMBIE'
-    >>> classify_variable({'delta_r2': 0.25}, {'any_causal': True})
+    >>> classify_variable({'delta_R2': 0.25}, {'any_causal': True})
     'MANDATORY'
     """
-    delta_r2 = probe_result.get('delta_r2', 0.0)
+    delta_r2 = probe_result.get('delta_R2', 0.0)
 
     # Gate 1: Does the model represent this variable at all?
     if delta_r2 < DELTA_THRESHOLD_LEARNED:
@@ -549,7 +552,7 @@ def classify_with_redundancy(
     Parameters
     ----------
     probe_result : dict
-        Must contain 'delta_r2'.
+        Must contain 'delta_R2'.
     ablation_result : dict or None
         Must contain 'any_causal' and 'causal_k_frac'.
 
@@ -559,10 +562,10 @@ def classify_with_redundancy(
         - 'classification' : str ('ZOMBIE', 'LEARNED_ZOMBIE', or 'MANDATORY')
         - 'redundancy_type' : str or None (only for MANDATORY variables)
         - 'breaking_point' : float or None (smallest causal k-fraction)
-        - 'delta_r2' : float
+        - 'delta_R2' : float
     """
     classification = classify_variable(probe_result, ablation_result)
-    delta_r2 = probe_result.get('delta_r2', 0.0)
+    delta_r2 = probe_result.get('delta_R2', 0.0)
 
     redundancy_type = None
     breaking_point = None
@@ -581,5 +584,5 @@ def classify_with_redundancy(
         'classification': classification,
         'redundancy_type': redundancy_type,
         'breaking_point': breaking_point,
-        'delta_r2': delta_r2,
+        'delta_R2': delta_r2,
     }

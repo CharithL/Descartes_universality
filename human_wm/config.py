@@ -2,7 +2,7 @@
 DESCARTES Human Universality -- Experiment-Specific Configuration
 
 All hyperparameters, paths, and constants specific to the Rutishauser
-Human Single-Neuron WM experiment (DANDI 000576). Methodology constants
+Human Single-Neuron WM experiment (DANDI 000469). Methodology constants
 (probing thresholds, ablation k-fractions) are inherited from
 descartes_core.config.
 """
@@ -20,7 +20,7 @@ RESULTS_DIR = DATA_DIR / 'results'
 HIDDEN_DIR = SURROGATE_DIR / 'hidden'
 
 # === DANDI Dataset ===
-DANDISET_ID = '000576'
+DANDISET_ID = '000469'
 
 # === NWB Schema ===
 NWB_SCHEMA_PATH = DATA_DIR / 'nwb_schema.json'
@@ -54,6 +54,8 @@ def load_nwb_schema(schema_path=None):
 
 # === Brain Region Identifiers (fallback patterns) ===
 # MTL (medial temporal lobe) region patterns
+# Supports both DANDI 000469 underscore style (e.g. "amygdala_right")
+# and human-readable style (e.g. "Right Hippocampus")
 MTL_REGION_PATTERNS = [
     'hippocampus', 'amygdala', 'entorhinal',
     'parahippocampal', 'perirhinal',
@@ -61,13 +63,16 @@ MTL_REGION_PATTERNS = [
 # Frontal region patterns
 FRONTAL_REGION_PATTERNS = [
     'prefrontal', 'orbitofrontal', 'dorsolateral',
-    'anterior cingulate', 'supplementary motor',
-    'pre-SMA', 'dACC', 'vmPFC',
+    'anterior_cingulate', 'anterior cingulate',
+    'supplementary_motor', 'supplementary motor',
+    'pre_supplementary', 'pre-SMA', 'pre-sma',
+    'dACC', 'dacc', 'vmPFC', 'vmpfc',
+    'ventromedial',
 ]
 
 # Minimum neuron counts per region for a session to qualify
-MIN_MTL_NEURONS = 10
-MIN_FRONTAL_NEURONS = 10
+MIN_MTL_NEURONS = 3
+MIN_FRONTAL_NEURONS = 3
 # Minimum number of trials for a session to qualify
 MIN_TRIALS = 50
 

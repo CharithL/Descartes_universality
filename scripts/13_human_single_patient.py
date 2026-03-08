@@ -186,7 +186,7 @@ def main():
     print(f'Hidden size:  {args.hidden}')
     print(f'CC:           {results["cc"]:.3f}')
     print()
-    print(f'{"Variable":<25} {"ΔR²":<8} {"Classification"}')
+    print(f'{"Variable":<25} {"dR2":<8} {"Classification"}')
     print('-' * 50)
 
     for var_name, var_result in results['variables'].items():

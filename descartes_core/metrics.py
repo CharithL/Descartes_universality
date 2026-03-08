@@ -17,7 +17,8 @@ def cross_condition_correlation(predicted, actual):
     Parameters
     ----------
     predicted : ndarray
-        Model output. If 2D (n_trials, T), trial-averages over time.
+        Model output. If 3D (n_trials, T, D), flattens to 2D first.
+        If 2D (n_trials, T), trial-averages over time.
         If 1D (n_trials,), used directly.
     actual : ndarray
         Ground truth, same shape convention as predicted.
@@ -27,6 +28,12 @@ def cross_condition_correlation(predicted, actual):
     float
         Pearson correlation coefficient.
     """
+    # Flatten 3D (n_trials, T, output_dim) to 2D (n_trials, T*output_dim)
+    if predicted.ndim == 3:
+        predicted = predicted.reshape(predicted.shape[0], -1)
+    if actual.ndim == 3:
+        actual = actual.reshape(actual.shape[0], -1)
+
     if predicted.ndim == 2:
         pred_mean = predicted.mean(axis=1)
         true_mean = actual.mean(axis=1)
