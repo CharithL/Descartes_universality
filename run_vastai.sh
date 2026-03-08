@@ -64,8 +64,8 @@ do_download() {
     log "=== STEP 2: Download NWB data from DANDI 000469 ==="
     cd "$WORK_DIR"
 
-    # Use API mode for reliable download (no dandi CLI needed)
-    python scripts/11_human_download.py --mode api
+    # Download all NWB files
+    python scripts/11_human_download.py --download --use-api
 
     # Count downloaded files
     NWB_COUNT=$(find data/raw -name "*.nwb" 2>/dev/null | wc -l)
