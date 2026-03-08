@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "descartes-wm"
+version = "0.1.0"
+description = "DESCARTES Working Memory — Zombie test for thalamic working memory representations"
+requires-python = ">=3.10"
+
+dependencies = [
+    # Data acquisition
+    "dandi>=0.60",
+    "pynwb>=2.5",
+    "h5py>=3.9",
+
+    # Numerical
+    "numpy>=1.24",
+    "scipy>=1.11",
+    "numba>=0.58",
+
+    # ML
+    "torch>=2.0",
+    "scikit-learn>=1.3",
+
+    # Utilities
+    "tqdm>=4.65",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "matplotlib>=3.7",
+    "seaborn>=0.12",
+    "jupyter>=1.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["descartes_core*", "wm*"]

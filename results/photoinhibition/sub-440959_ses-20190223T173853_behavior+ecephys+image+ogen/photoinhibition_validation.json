@@ -1,0 +1,164 @@
+{
+  "64": {
+    "n_ctrl": 44,
+    "n_stim": 7,
+    "variables": {
+      "choice_signal": {
+        "control_R2_trained": 0.0414509654045105,
+        "control_R2_untrained": -0.06689411401748657,
+        "control_delta_R2": 0.10834507942199707,
+        "photostim_R2_trained": -2.497856855392456,
+        "photostim_R2_untrained": -2.401254177093506,
+        "photostim_delta_R2": -0.0966026782989502,
+        "degraded": true
+      },
+      "delay_stability": {
+        "control_R2_trained": -0.08616010348019701,
+        "control_R2_untrained": -0.07981935825695716,
+        "control_delta_R2": -0.006340745223239852,
+        "photostim_R2_trained": -0.2366127270024081,
+        "photostim_R2_untrained": -0.2390958720869667,
+        "photostim_delta_R2": 0.0024831450845586023,
+        "degraded": false
+      },
+      "ramp_signal": {
+        "control_R2_trained": -0.8596372237607721,
+        "control_R2_untrained": -0.8112943809109057,
+        "control_delta_R2": -0.04834284284986645,
+        "photostim_R2_trained": 0.4217364849572196,
+        "photostim_R2_untrained": 0.15211799065350573,
+        "photostim_delta_R2": 0.2696184943037139,
+        "degraded": false
+      },
+      "theta_modulation": {
+        "control_R2_trained": -2.477436707593026,
+        "control_R2_untrained": -1.3367657361481857,
+        "control_delta_R2": -1.1406709714448402,
+        "photostim_R2_trained": -0.014812118022189846,
+        "photostim_R2_untrained": -0.02297242092619589,
+        "photostim_delta_R2": 0.008160302904006045,
+        "degraded": false
+      },
+      "population_synchrony": {
+        "control_R2_trained": -1.7160268565424832,
+        "control_R2_untrained": -0.5421328764822947,
+        "control_delta_R2": -1.1738939800601886,
+        "photostim_R2_trained": 0.9690425048857887,
+        "photostim_R2_untrained": -0.11429662677868269,
+        "photostim_delta_R2": 1.0833391316644714,
+        "degraded": false
+      }
+    },
+    "output_mse_control": 0.09798923879861832,
+    "output_mse_photostim": 0.08369778096675873,
+    "mse_ratio": 0.8541527824169494
+  },
+  "128": {
+    "n_ctrl": 44,
+    "n_stim": 7,
+    "variables": {
+      "choice_signal": {
+        "control_R2_trained": 0.011104345321655273,
+        "control_R2_untrained": -0.0394472599029541,
+        "control_delta_R2": 0.05055160522460937,
+        "photostim_R2_trained": -2.5284066200256348,
+        "photostim_R2_untrained": -2.390216112136841,
+        "photostim_delta_R2": -0.13819050788879395,
+        "degraded": true
+      },
+      "delay_stability": {
+        "control_R2_trained": -0.08195167436758757,
+        "control_R2_untrained": -0.08008097049408498,
+        "control_delta_R2": -0.001870703873502591,
+        "photostim_R2_trained": -0.23359284568085892,
+        "photostim_R2_untrained": -0.23991470762997658,
+        "photostim_delta_R2": 0.0063218619491176575,
+        "degraded": false
+      },
+      "ramp_signal": {
+        "control_R2_trained": -0.35375958513745176,
+        "control_R2_untrained": -0.3613627342534838,
+        "control_delta_R2": 0.007603149116032049,
+        "photostim_R2_trained": -0.07426519242962537,
+        "photostim_R2_untrained": 0.4424831582244405,
+        "photostim_delta_R2": -0.5167483506540659,
+        "degraded": false
+      },
+      "theta_modulation": {
+        "control_R2_trained": -0.689305003003677,
+        "control_R2_untrained": -2.4805684706392355,
+        "control_delta_R2": 1.7912634676355585,
+        "photostim_R2_trained": -0.03138124586921709,
+        "photostim_R2_untrained": -0.04489894246133397,
+        "photostim_delta_R2": 0.013517696592116879,
+        "degraded": true
+      },
+      "population_synchrony": {
+        "control_R2_trained": -1.5761257343706365,
+        "control_R2_untrained": -0.4614587152857229,
+        "control_delta_R2": -1.1146670190849135,
+        "photostim_R2_trained": 0.9578267698050276,
+        "photostim_R2_untrained": -0.0838245198984453,
+        "photostim_delta_R2": 1.0416512897034729,
+        "degraded": false
+      }
+    },
+    "output_mse_control": 0.09784910082817078,
+    "output_mse_photostim": 0.08346863836050034,
+    "mse_ratio": 0.8530342911078617
+  },
+  "256": {
+    "n_ctrl": 44,
+    "n_stim": 7,
+    "variables": {
+      "choice_signal": {
+        "control_R2_trained": 0.013537299633026124,
+        "control_R2_untrained": -0.1676241397857666,
+        "control_delta_R2": 0.18116143941879273,
+        "photostim_R2_trained": -2.461186647415161,
+        "photostim_R2_untrained": -2.410823345184326,
+        "photostim_delta_R2": -0.05036330223083496,
+        "degraded": true
+      },
+      "delay_stability": {
+        "control_R2_trained": -0.20481110406015332,
+        "control_R2_untrained": -0.08837166437972006,
+        "control_delta_R2": -0.11643943968043326,
+        "photostim_R2_trained": -0.13311850649648105,
+        "photostim_R2_untrained": -0.23704503898722917,
+        "photostim_delta_R2": 0.10392653249074812,
+        "degraded": false
+      },
+      "ramp_signal": {
+        "control_R2_trained": -0.46246028507753545,
+        "control_R2_untrained": -0.3660604459105336,
+        "control_delta_R2": -0.09639983916700184,
+        "photostim_R2_trained": 0.6005239150919,
+        "photostim_R2_untrained": 0.0892146012372953,
+        "photostim_delta_R2": 0.5113093138546047,
+        "degraded": false
+      },
+      "theta_modulation": {
+        "control_R2_trained": -0.39948063996948996,
+        "control_R2_untrained": -3.902683785051773,
+        "control_delta_R2": 3.503203145082283,
+        "photostim_R2_trained": -0.08507299292382253,
+        "photostim_R2_untrained": -0.07759658853925755,
+        "photostim_delta_R2": -0.007476404384564983,
+        "degraded": true
+      },
+      "population_synchrony": {
+        "control_R2_trained": -0.279308037005568,
+        "control_R2_untrained": -0.48897602051605416,
+        "control_delta_R2": 0.20966798351048616,
+        "photostim_R2_trained": 0.9087471885636034,
+        "photostim_R2_untrained": -0.07790802708107725,
+        "photostim_delta_R2": 0.9866552156446806,
+        "degraded": false
+      }
+    },
+    "output_mse_control": 0.09786402434110641,
+    "output_mse_photostim": 0.08333780616521835,
+    "mse_ratio": 0.8515673325955131
+  }
+}

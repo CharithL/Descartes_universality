@@ -1,0 +1,640 @@
+[
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "choice_signal",
+      "delta_R2": 0.04941726922988898,
+      "R2_trained": 0.9131776332855225,
+      "R2_untrained": 0.8637603640556335,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "ramp_signal",
+      "delta_R2": -0.0024257726749364883,
+      "R2_trained": 0.8910964922036803,
+      "R2_untrained": 0.8935222648786167,
+      "p_value": 1.0,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "population_rate",
+      "delta_R2": 0.03720476627349856,
+      "R2_trained": 0.9289915442466736,
+      "R2_untrained": 0.8917867779731751,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "choice_magnitude",
+      "delta_R2": 0.04941726922988898,
+      "R2_trained": 0.9131776332855225,
+      "R2_untrained": 0.8637603640556335,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "choice_signal",
+      "delta_R2": -0.01159491539001467,
+      "R2_trained": 0.8888917565345764,
+      "R2_untrained": 0.9004866719245911,
+      "p_value": 1.0,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "ramp_signal",
+      "delta_R2": 0.05634477630493051,
+      "R2_trained": 0.8923666905926598,
+      "R2_untrained": 0.8360219142877293,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "population_rate",
+      "delta_R2": -0.0030394434928894265,
+      "R2_trained": 0.9115883231163024,
+      "R2_untrained": 0.9146277666091919,
+      "p_value": 1.0,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "choice_magnitude",
+      "delta_R2": -0.01159491539001467,
+      "R2_trained": 0.8888917565345764,
+      "R2_untrained": 0.9004866719245911,
+      "p_value": 1.0,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "choice_signal",
+      "delta_R2": 0.0249528646469116,
+      "R2_trained": 0.9080379128456115,
+      "R2_untrained": 0.8830850481986999,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "ramp_signal",
+      "delta_R2": -0.022324004485832383,
+      "R2_trained": 0.8874182453884274,
+      "R2_untrained": 0.9097422498742598,
+      "p_value": 1.0,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "population_rate",
+      "delta_R2": 0.018886268138885498,
+      "R2_trained": 0.9197407245635987,
+      "R2_untrained": 0.9008544564247132,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "choice_magnitude",
+      "delta_R2": 0.0249528646469116,
+      "R2_trained": 0.9080379128456115,
+      "R2_untrained": 0.8830850481986999,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_DISTRIBUTED",
+    "evidence": {
+      "var_name": "delay_stability",
+      "delta_R2": 0.6084122388518297,
+      "R2_trained": 0.46054311204602866,
+      "R2_untrained": -0.14786912680580108,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_DISTRIBUTED",
+      "breaking_point": 0.6,
+      "baseline_cc": 0.7174401879310608,
+      "min_z_score": -3.353179397189375,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "theta_modulation",
+      "delta_R2": 0.10822801997839138,
+      "R2_trained": 0.8128686478991376,
+      "R2_untrained": 0.7046406279207462,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.1,
+      "baseline_cc": 0.7174401879310608,
+      "min_z_score": -4.735195224714003,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "population_synchrony",
+      "delta_R2": 0.027834959929232128,
+      "R2_trained": 0.9753452794743094,
+      "R2_untrained": 0.9475103195450773,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_DISTRIBUTED",
+    "evidence": {
+      "var_name": "delay_stability",
+      "delta_R2": 0.1493931316308656,
+      "R2_trained": 0.5044220598670743,
+      "R2_untrained": 0.35502892823620874,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_DISTRIBUTED",
+      "breaking_point": 0.6,
+      "baseline_cc": 0.7174401879310608,
+      "min_z_score": -3.353179397189375,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "theta_modulation",
+      "delta_R2": 0.049325556251631486,
+      "R2_trained": 0.8261044335831367,
+      "R2_untrained": 0.7767788773315052,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "population_synchrony",
+      "delta_R2": 0.07554749427165497,
+      "R2_trained": 0.9800971071558962,
+      "R2_untrained": 0.9045496128842412,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_DISTRIBUTED",
+    "evidence": {
+      "var_name": "delay_stability",
+      "delta_R2": 0.10271606438818848,
+      "R2_trained": 0.5119113899761348,
+      "R2_untrained": 0.40919532558794636,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_DISTRIBUTED",
+      "breaking_point": 0.6,
+      "baseline_cc": 0.7174401879310608,
+      "min_z_score": -3.353179397189375,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "theta_modulation",
+      "delta_R2": 0.1536234898811636,
+      "R2_trained": 0.8314507381170639,
+      "R2_untrained": 0.6778272482359003,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.1,
+      "baseline_cc": 0.7174401879310608,
+      "min_z_score": -4.735195224714003,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "population_synchrony",
+      "delta_R2": 0.07724822218668514,
+      "R2_trained": 0.977193093419228,
+      "R2_untrained": 0.8999448712325429,
+      "p_value": 0.047619047619047616,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "choice_signal",
+      "delta_R2": 0.2133639931678772,
+      "R2_trained": 0.06467057466506958,
+      "R2_untrained": -0.14869341850280762,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.1,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -2.9981208787406275,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "ramp_signal",
+      "delta_R2": -0.00860152362117901,
+      "R2_trained": -0.044978945350519585,
+      "R2_untrained": -0.036377421729340574,
+      "p_value": 1.0,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "population_rate",
+      "delta_R2": 0.5123976111412049,
+      "R2_trained": -0.04459902048110962,
+      "R2_untrained": -0.5569966316223145,
+      "p_value": 0.09523809523809523,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.05,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -10.911481731106543,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "choice_magnitude",
+      "delta_R2": 0.3657156825065613,
+      "R2_trained": 0.26158804893493653,
+      "R2_untrained": -0.10412763357162476,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.05,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -4.433593053483119,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "choice_signal",
+      "delta_R2": 0.22480263710021975,
+      "R2_trained": 0.030618977546691895,
+      "R2_untrained": -0.19418365955352784,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.1,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -2.9981208787406275,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "LEARNED_BYPRODUCT",
+    "evidence": {
+      "var_name": "ramp_signal",
+      "delta_R2": 0.14341402559786523,
+      "R2_trained": 0.007953058928529577,
+      "R2_untrained": -0.13546096666933566,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "NON_CAUSAL",
+      "breaking_point": null,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -1.067542351722558,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "population_rate",
+      "delta_R2": 0.3759361982345581,
+      "R2_trained": 0.17722707986831665,
+      "R2_untrained": -0.19870911836624144,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.05,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -10.911481731106543,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "choice_magnitude",
+      "delta_R2": 0.3387089610099792,
+      "R2_trained": 0.2578314900398254,
+      "R2_untrained": -0.08087747097015381,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.05,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -4.433593053483119,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "choice_signal",
+      "delta_R2": 0.35451732873916625,
+      "R2_trained": 0.08807677030563354,
+      "R2_untrained": -0.2664405584335327,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.1,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -2.9981208787406275,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "LEARNED_BYPRODUCT",
+    "evidence": {
+      "var_name": "ramp_signal",
+      "delta_R2": 0.7577594471919592,
+      "R2_trained": 0.01648226921442062,
+      "R2_untrained": -0.7412771779775386,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "NON_CAUSAL",
+      "breaking_point": null,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -1.067542351722558,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "population_rate",
+      "delta_R2": 1.2952279567718505,
+      "R2_trained": 0.24131112098693847,
+      "R2_untrained": -1.053916835784912,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.05,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -10.911481731106543,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "choice_magnitude",
+      "delta_R2": 0.309962797164917,
+      "R2_trained": 0.292995810508728,
+      "R2_untrained": -0.016966986656188964,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.05,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -4.433593053483119,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "delay_stability",
+      "delta_R2": -0.014566969899138221,
+      "R2_trained": -0.06581322533151664,
+      "R2_untrained": -0.051246255432378415,
+      "p_value": 1.0,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "theta_modulation",
+      "delta_R2": 0.11263195663246076,
+      "R2_trained": -0.08376182586769543,
+      "R2_untrained": -0.19639378250015618,
+      "p_value": 0.14285714285714285,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.1,
+      "baseline_cc": 0.7174401879310608,
+      "min_z_score": -4.735195224714003,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "population_synchrony",
+      "delta_R2": 3.922931158815253,
+      "R2_trained": 0.08909245973498355,
+      "R2_untrained": -3.8338386990802698,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.05,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -9.716288033466274,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_DISTRIBUTED",
+    "evidence": {
+      "var_name": "delay_stability",
+      "delta_R2": 0.13012336233015684,
+      "R2_trained": -0.028068066366687905,
+      "R2_untrained": -0.15819142869684474,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_DISTRIBUTED",
+      "breaking_point": 0.6,
+      "baseline_cc": 0.7174401879310608,
+      "min_z_score": -3.353179397189375,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "theta_modulation",
+      "delta_R2": 0.24170056692154723,
+      "R2_trained": -0.1960998158021688,
+      "R2_untrained": -0.437800382723716,
+      "p_value": 0.47619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.1,
+      "baseline_cc": 0.7174401879310608,
+      "min_z_score": -4.735195224714003,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "population_synchrony",
+      "delta_R2": 4.003584430314578,
+      "R2_trained": -0.30931024667781987,
+      "R2_untrained": -4.312894676992397,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.05,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -9.716288033466274,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "ZOMBIE",
+    "evidence": {
+      "var_name": "delay_stability",
+      "delta_R2": -0.025376703958753424,
+      "R2_trained": -0.0831759946947355,
+      "R2_untrained": -0.05779929073598207,
+      "p_value": 1.0,
+      "stage_reached": "ridge"
+    },
+    "stage_reached": "ridge",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "theta_modulation",
+      "delta_R2": 0.221421115300133,
+      "R2_trained": -0.06714012758926088,
+      "R2_untrained": -0.2885612428893939,
+      "p_value": 0.09523809523809523,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.1,
+      "baseline_cc": 0.7174401879310608,
+      "min_z_score": -4.735195224714003,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  },
+  {
+    "final_category": "MANDATORY_CONCENTRATED",
+    "evidence": {
+      "var_name": "population_synchrony",
+      "delta_R2": 5.3576627460682955,
+      "R2_trained": 0.15443249166660522,
+      "R2_untrained": -5.20323025440169,
+      "p_value": 0.047619047619047616,
+      "ablation_classification": "MANDATORY_CONCENTRATED",
+      "breaking_point": 0.05,
+      "baseline_cc": 0.7228078246116638,
+      "min_z_score": -9.716288033466274,
+      "stage_reached": "ablation"
+    },
+    "stage_reached": "ablation",
+    "session": "unknown"
+  }
+]
