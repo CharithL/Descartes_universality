@@ -132,6 +132,29 @@ def _detect_region_column(colnames: list[str]) -> str | None:
     return None
 
 
+def _coerce_region_to_str(value) -> str:
+    """Convert a region value to a plain string.
+
+    NWB files may store region info as plain strings, or as PyNWB objects
+    like ``ElectrodeGroup`` (which have ``.location`` and ``.name``
+    attributes).  This helper normalises any variant to a simple string
+    suitable for use as dict keys and in JSON output.
+    """
+    if isinstance(value, str):
+        return value
+
+    # PyNWB ElectrodeGroup — prefer .location (brain region) over .name
+    location = getattr(value, 'location', None)
+    if location and isinstance(location, str) and location.strip():
+        return location.strip()
+
+    name = getattr(value, 'name', None)
+    if name and isinstance(name, str) and name.strip():
+        return name.strip()
+
+    return str(value)
+
+
 def _extract_regions(nwbfile, region_column: str) -> dict[str, int]:
     """Extract brain region counts from the units table.
 
@@ -145,12 +168,13 @@ def _extract_regions(nwbfile, region_column: str) -> dict[str, int]:
     Returns
     -------
     dict[str, int]
-        Mapping of region name to unit count.
+        Mapping of region name (string) to unit count.
     """
     units = nwbfile.units
     regions = []
     for i in range(len(units)):
-        regions.append(units[region_column][i])
+        raw = units[region_column][i]
+        regions.append(_coerce_region_to_str(raw))
     return dict(Counter(regions))
 
 

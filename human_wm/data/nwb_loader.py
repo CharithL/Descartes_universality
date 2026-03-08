@@ -130,7 +130,16 @@ def extract_patient_data(
     frontal_indices = []
 
     for i in range(n_units):
-        region = units[region_column][i]
+        raw_region = units[region_column][i]
+        # ElectrodeGroup objects → extract .location (brain region) or .name
+        if isinstance(raw_region, str):
+            region = raw_region
+        else:
+            region = (
+                getattr(raw_region, 'location', None)
+                or getattr(raw_region, 'name', None)
+                or str(raw_region)
+            )
         classification = _classify_region(region, schema)
         if classification == 'mtl':
             mtl_indices.append(i)
